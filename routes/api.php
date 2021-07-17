@@ -41,7 +41,7 @@ Route::apiResource('/kecamatan', App\Http\Controllers\Api\KecamatanController::c
 /**
  * route resource desa
 */
-//Route::apiResource('/desa', App\Http\Controllers\Api\DesaController::class);
+Route::apiResource('/desa', App\Http\Controllers\Api\DesaController::class);
 /**
  * route resource berita desa
 */

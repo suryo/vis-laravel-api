@@ -49,7 +49,7 @@ Route::apiResource('/beritadesa', App\Http\Controllers\Api\BeritaDesaController:
 /**
  * route resource kartu keluarga
 */
-//Route::apiResource('/kartukeluarga', App\Http\Controllers\Api\KartuKeluargaController::class);
+Route::apiResource('/kartukeluarga', App\Http\Controllers\Api\KartuKeluargaController::class);
 /**
  * route resource kecamatan
 */

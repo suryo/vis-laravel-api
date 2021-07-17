@@ -31,6 +31,7 @@ class KartuKeluargaController extends Controller
     {
         //set validation
         $validator = Validator::make($request->all(), [
+            'no_kk' => 'required',
             'nik' => 'required'
         ]);
 
@@ -40,31 +41,32 @@ class KartuKeluargaController extends Controller
         }
 
         //save to database
-        $nik = vis_kartu_keluarga::create([
+        $no_kk = vis_kartu_keluarga::create([
+            'no_kk' => $request->no_kk,
             'nik'     => $request->nik
         ]);
 
-        return new KartuKeluargaResource($nik);
+        return new KartuKeluargaResource($no_kk);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  vis_kartu_keluarga $nik
+     * @param  vis_kartu_keluarga $no_kk
      * @return \Illuminate\Http\Response
      */
-    public function show(vis_kartu_keluarga $nik)
+    public function show(vis_kartu_keluarga $no_kk)
     {
-        return new KartuKeluargaResource($nik);
+        return new KartuKeluargaResource($no_kk);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  vis_kartu_keluarga $nik
+     * @param  vis_kartu_keluarga $no_kk
      * @return \Illuminate\Http\Response
      */
-    public function showWithProvinsi(vis_kartu_keluarga $nik)
+    public function showWithProvinsi(vis_kartu_keluarga $no_kk)
     {
         //dd("asik");
         $result =  DB::table('vis_kartu_keluargas')
@@ -76,7 +78,7 @@ class KartuKeluargaController extends Controller
      /**
      * Display the specified resource.
      * @param  \Illuminate\Http\Request  $request
-     * @param  vis_kartu_keluarga $nik
+     * @param  vis_kartu_keluarga $no_kk
      * @return \Illuminate\Http\Response
      */
     public function showWithProvinsibyId(Request $request)
@@ -101,13 +103,14 @@ class KartuKeluargaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  vis_kartu_keluarga $nik
+     * @param  vis_kartu_keluarga $no_kk
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, vis_kartu_keluarga $nik)
+    public function update(Request $request, vis_kartu_keluarga $no_kk)
     {
         //set validation
         $validator = Validator::make($request->all(), [
+            'no_kk'   => 'required',
             'nik'   => 'required'
         ]);
 
@@ -117,23 +120,24 @@ class KartuKeluargaController extends Controller
         }
 
         //update to database
-        $nik->update([
+        $no_kk->update([
+            'no_kk' => $request->no_kk,
             'nik' => $request->nik
         ]);
 
-        return new KartuKeluargaResource($nik);
+        return new KartuKeluargaResource($no_kk);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  vis_kartu_keluarga $nik
+     * @param  vis_kartu_keluarga $no_kk
      * @return \Illuminate\Http\Response
      */
-    public function destroy(vis_kartu_keluarga $nik)
+    public function destroy(vis_kartu_keluarga $no_kk)
     {
-        $nik->delete();
+        $no_kk->delete();
         
-        return new KartuKeluargaResource($nik);
+        return new KartuKeluargaResource($no_kk);
     }
 }

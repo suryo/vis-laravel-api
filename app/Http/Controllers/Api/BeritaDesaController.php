@@ -31,8 +31,10 @@ class BeritaDesaController extends Controller
     {
         //set validation
         $validator = Validator::make($request->all(), [
-            'id_provinsi' => 'required',
-            'kabupaten'   => 'required'
+            'id_desa' => 'required',
+            'judul' => 'required',
+            'tanggal' => 'required',
+            'berita'   => 'required'
         ]);
 
         //response error validation
@@ -42,8 +44,10 @@ class BeritaDesaController extends Controller
 
         //save to database
         $beritadesa = vis_berita_desa::create([
-            'id_provinsi'     => $request->id_provinsi,
-            'kabupaten'     => $request->kabupaten
+            'id_desa'     => $request->id_desa,
+            'judul'     => $request->judul,
+            'tanggal'     => $request->tanggal,
+            'berita'     => $request->berita
         ]);
 
         return new BeritaDesaResource($beritadesa);
@@ -73,8 +77,10 @@ class BeritaDesaController extends Controller
     {
         //set validation
         $validator = Validator::make($request->all(), [
-            'id_provinsi'   => 'required',
-            'kabupaten'   => 'required'
+            'id_desa' => 'required',
+            'judul' => 'required',
+            'tanggal' => 'required',
+            'berita'   => 'required'
         ]);
 
         //response error validation
@@ -84,8 +90,10 @@ class BeritaDesaController extends Controller
 
         //update to database
         $beritadesa->update([
-            'id_provinsi' => $request->id_provinsi,
-            'kabupaten'     => $request->kabupaten
+            'id_desa'     => $request->id_desa,
+            'judul'     => $request->judul,
+            'tanggal'     => $request->tanggal,
+            'berita'     => $request->berita
         ]);
 
         return new BeritaDesaResource($beritadesa);

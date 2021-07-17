@@ -60,44 +60,7 @@ class KartuKeluargaController extends Controller
         return new KartuKeluargaResource($no_kk);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  vis_kartu_keluarga $no_kk
-     * @return \Illuminate\Http\Response
-     */
-    public function showWithProvinsi(vis_kartu_keluarga $no_kk)
-    {
-        //dd("asik");
-        $result =  DB::table('vis_kartu_keluargas')
-        ->join('vis_provinsis', 'vis_provinsis.id', '=', 'vis_kartu_keluargas.id_provinsi')
-        ->get();
-        return response()->json(['data'=>$result]);
-    }
-
-     /**
-     * Display the specified resource.
-     * @param  \Illuminate\Http\Request  $request
-     * @param  vis_kartu_keluarga $no_kk
-     * @return \Illuminate\Http\Response
-     */
-    public function showWithProvinsibyId(Request $request)
-    {
-        //dd($request->id);
-        // $result =  DB::table('vis_kartu_keluargas')
-        // ->select('vis_kartu_keluargas.*',
-        // DB::raw('(select provinsi from vis_provinsis where id = vis_kartu_keluargas.id_provinsi ) as provinsi')
-        // )
-        // ->where('vis_kartu_keluargas.id', $request->id)        
-        // ->get();
-
-        $result =  DB::select('select * from vis_kartu_keluargas as vk 
-        JOIN vis_provinsis as vp 
-        ON 
-        vk.id_provinsi=vp.id 
-        where vk.id ='. $request->id);
-        return response()->json(['data'=>$result]);
-    }
+    
 
     /**
      * Update the specified resource in storage.

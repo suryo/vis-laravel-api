@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\vis_kabupaten;
+use App\Models\vis_kartu_keluarga;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\KabupatenResource;
+use App\Http\Resources\KartuKeluargaResource;
 use Illuminate\Support\Facades\Validator;
 use DB;
 
-class \KartuKeluargaController extends Controller
+class KartuKeluargaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +18,7 @@ class \KartuKeluargaController extends Controller
      */
     public function index()
     {
-        return new KabupatenResource(vis_kabupaten::all());
+        return new KartuKeluargaResource(vis_kartu_keluarga::all());
     }
 
     /**
@@ -31,8 +31,7 @@ class \KartuKeluargaController extends Controller
     {
         //set validation
         $validator = Validator::make($request->all(), [
-            'id_provinsi' => 'required',
-            'kabupaten'   => 'required'
+            'nik' => 'required'
         ]);
 
         //response error validation
@@ -41,36 +40,35 @@ class \KartuKeluargaController extends Controller
         }
 
         //save to database
-        $kabupaten = vis_kabupaten::create([
-            'id_provinsi'     => $request->id_provinsi,
-            'kabupaten'     => $request->kabupaten
+        $nik = vis_kartu_keluarga::create([
+            'nik'     => $request->nik
         ]);
 
-        return new KabupatenResource($kabupaten);
+        return new KartuKeluargaResource($nik);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  vis_kabupaten $kabupaten
+     * @param  vis_kartu_keluarga $nik
      * @return \Illuminate\Http\Response
      */
-    public function show(vis_kabupaten $kabupaten)
+    public function show(vis_kartu_keluarga $nik)
     {
-        return new KabupatenResource($kabupaten);
+        return new KartuKeluargaResource($nik);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  vis_kabupaten $kabupaten
+     * @param  vis_kartu_keluarga $nik
      * @return \Illuminate\Http\Response
      */
-    public function showWithProvinsi(vis_kabupaten $kabupaten)
+    public function showWithProvinsi(vis_kartu_keluarga $nik)
     {
         //dd("asik");
-        $result =  DB::table('vis_kabupatens')
-        ->join('vis_provinsis', 'vis_provinsis.id', '=', 'vis_kabupatens.id_provinsi')
+        $result =  DB::table('vis_kartu_keluargas')
+        ->join('vis_provinsis', 'vis_provinsis.id', '=', 'vis_kartu_keluargas.id_provinsi')
         ->get();
         return response()->json(['data'=>$result]);
     }
@@ -78,20 +76,20 @@ class \KartuKeluargaController extends Controller
      /**
      * Display the specified resource.
      * @param  \Illuminate\Http\Request  $request
-     * @param  vis_kabupaten $kabupaten
+     * @param  vis_kartu_keluarga $nik
      * @return \Illuminate\Http\Response
      */
     public function showWithProvinsibyId(Request $request)
     {
         //dd($request->id);
-        // $result =  DB::table('vis_kabupatens')
-        // ->select('vis_kabupatens.*',
-        // DB::raw('(select provinsi from vis_provinsis where id = vis_kabupatens.id_provinsi ) as provinsi')
+        // $result =  DB::table('vis_kartu_keluargas')
+        // ->select('vis_kartu_keluargas.*',
+        // DB::raw('(select provinsi from vis_provinsis where id = vis_kartu_keluargas.id_provinsi ) as provinsi')
         // )
-        // ->where('vis_kabupatens.id', $request->id)        
+        // ->where('vis_kartu_keluargas.id', $request->id)        
         // ->get();
 
-        $result =  DB::select('select * from vis_kabupatens as vk 
+        $result =  DB::select('select * from vis_kartu_keluargas as vk 
         JOIN vis_provinsis as vp 
         ON 
         vk.id_provinsi=vp.id 
@@ -103,15 +101,14 @@ class \KartuKeluargaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  vis_kabupaten $kabupaten
+     * @param  vis_kartu_keluarga $nik
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, vis_kabupaten $kabupaten)
+    public function update(Request $request, vis_kartu_keluarga $nik)
     {
         //set validation
         $validator = Validator::make($request->all(), [
-            'id_provinsi'   => 'required',
-            'kabupaten'   => 'required'
+            'nik'   => 'required'
         ]);
 
         //response error validation
@@ -120,24 +117,23 @@ class \KartuKeluargaController extends Controller
         }
 
         //update to database
-        $kabupaten->update([
-            'id_provinsi' => $request->id_provinsi,
-            'kabupaten'     => $request->kabupaten
+        $nik->update([
+            'nik' => $request->nik
         ]);
 
-        return new KabupatenResource($kabupaten);
+        return new KartuKeluargaResource($nik);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  vis_kabupaten $kabupaten
+     * @param  vis_kartu_keluarga $nik
      * @return \Illuminate\Http\Response
      */
-    public function destroy(vis_kabupaten $kabupaten)
+    public function destroy(vis_kartu_keluarga $nik)
     {
-        $kabupaten->delete();
+        $nik->delete();
         
-        return new KabupatenResource($kabupaten);
+        return new KartuKeluargaResource($nik);
     }
 }

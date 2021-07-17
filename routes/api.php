@@ -37,7 +37,7 @@ Route::apiResource('/kota', App\Http\Controllers\Api\KotaController::class);
 /**
  * route resource kecamatan
 */
-//Route::apiResource('/kecamatan', App\Http\Controllers\Api\KecamatanController::class);
+Route::apiResource('/kecamatan', App\Http\Controllers\Api\KecamatanController::class);
 /**
  * route resource desa
 */

@@ -45,7 +45,7 @@ Route::apiResource('/desa', App\Http\Controllers\Api\DesaController::class);
 /**
  * route resource berita desa
 */
-//Route::apiResource('/beritadesa', App\Http\Controllers\Api\BeritaDesaController::class);
+Route::apiResource('/beritadesa', App\Http\Controllers\Api\BeritaDesaController::class);
 /**
  * route resource kartu keluarga
 */

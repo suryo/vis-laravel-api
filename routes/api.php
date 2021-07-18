@@ -81,7 +81,7 @@ Route::apiResource('/suratmasuk', App\Http\Controllers\Api\SuratMasukController:
 /**
  * route resource data penduduk
 */
-//Route::apiResource('/datapenduduk', App\Http\Controllers\Api\DataPendudukController::class);
+Route::apiResource('/datapenduduk', App\Http\Controllers\Api\DataPendudukController::class);
 /**
  * route resource perangkat desa
 */

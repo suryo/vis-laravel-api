@@ -77,7 +77,7 @@ Route::apiResource('/suratkeluar', App\Http\Controllers\Api\SuratKeluarControlle
 /**
  * route resource surat masuk
 */
-//Route::apiResource('/suratmasuk', App\Http\Controllers\Api\SuratMasukController::class);
+Route::apiResource('/suratmasuk', App\Http\Controllers\Api\SuratMasukController::class);
 /**
  * route resource data penduduk
 */

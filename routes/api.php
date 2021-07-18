@@ -51,10 +51,6 @@ Route::apiResource('/beritadesa', App\Http\Controllers\Api\BeritaDesaController:
 */
 Route::apiResource('/kartukeluarga', App\Http\Controllers\Api\KartuKeluargaController::class);
 /**
- * route resource kecamatan
-*/
-//Route::apiResource('/', App\Http\Controllers\Api\KecamatanController::class);
-/**
  * route resource jenis lembaga desa
 */
 Route::apiResource('/jenislembagadesa', App\Http\Controllers\Api\JenisLembagaDesaController::class);
@@ -77,7 +73,7 @@ Route::apiResource('/mastersurat', App\Http\Controllers\Api\MasterSuratControlle
 /**
  * route resource surat keluar
 */
-//Route::apiResource('/suratkeluar', App\Http\Controllers\Api\SuratKeluarController::class);
+Route::apiResource('/suratkeluar', App\Http\Controllers\Api\SuratKeluarController::class);
 /**
  * route resource surat masuk
 */

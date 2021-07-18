@@ -13,16 +13,16 @@ with this guide, we hope knowledge transfer can be faster, and the software deve
 
 ## Installation
 
-Use the package manager [composer](https://getcomposer.org/) to install packages.
+1. Clone Repo
+   `git clone`
 
-```bash
-git clone https://github.com/suryo/vis-laravel-api.git
-cd vis-laravel-api
-composer install
+2. Open Folder
+   `cd vis-laravel-api`
 
-```
+3. Install Composer
+   `composer install`
 
-## Setup
+## Setup Database
 
 1. Make database with name
    `db_vis`
@@ -34,13 +34,9 @@ composer install
 
 ## Usage
 
-You can use laravel built-in server to run local server(for development).
+After all Installation and setup database, You can run laravel on local
 
-```
-cd api
-php artisan serve
-
-```
+`php artisan serve`
 
 ## Created By
 

@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\vis_kabupaten;
+use App\Models\vis_lembaga_desa;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\KabupatenResource;
+use App\Http\Resources\LembagaDesaResource;
 use Illuminate\Support\Facades\Validator;
 use DB;
 
-class \LembagaDesaController extends Controller
+class LembagaDesaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +18,7 @@ class \LembagaDesaController extends Controller
      */
     public function index()
     {
-        return new KabupatenResource(vis_kabupaten::all());
+        return new LembagaDesaResource(vis_lembaga_desa::all());
     }
 
     /**
@@ -31,8 +31,9 @@ class \LembagaDesaController extends Controller
     {
         //set validation
         $validator = Validator::make($request->all(), [
-            'id_provinsi' => 'required',
-            'kabupaten'   => 'required'
+            'id_jenis_lembaga' => 'required',
+            'id_desa' => 'required',
+            'lembaga_desa'   => 'required'
         ]);
 
         //response error validation
@@ -41,77 +42,42 @@ class \LembagaDesaController extends Controller
         }
 
         //save to database
-        $kabupaten = vis_kabupaten::create([
-            'id_provinsi'     => $request->id_provinsi,
-            'kabupaten'     => $request->kabupaten
+        $lembaga_desa = vis_lembaga_desa::create([
+            'id_jenis_lembaga'     => $request->id_jenis_lembaga,
+            'id_desa'     => $request->id_desa,
+            'lembaga_desa'     => $request->lembaga_desa
         ]);
 
-        return new KabupatenResource($kabupaten);
+        return new LembagaDesaResource($lembaga_desa);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  vis_kabupaten $kabupaten
+     * @param  vis_lembaga_desa $lembaga_desa
      * @return \Illuminate\Http\Response
      */
-    public function show(vis_kabupaten $kabupaten)
+    public function show(vis_lembaga_desa $lembaga_desa)
     {
-        return new KabupatenResource($kabupaten);
+        return new LembagaDesaResource($lembaga_desa);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  vis_kabupaten $kabupaten
-     * @return \Illuminate\Http\Response
-     */
-    public function showWithProvinsi(vis_kabupaten $kabupaten)
-    {
-        //dd("asik");
-        $result =  DB::table('vis_kabupatens')
-        ->join('vis_provinsis', 'vis_provinsis.id', '=', 'vis_kabupatens.id_provinsi')
-        ->get();
-        return response()->json(['data'=>$result]);
-    }
-
-     /**
-     * Display the specified resource.
-     * @param  \Illuminate\Http\Request  $request
-     * @param  vis_kabupaten $kabupaten
-     * @return \Illuminate\Http\Response
-     */
-    public function showWithProvinsibyId(Request $request)
-    {
-        //dd($request->id);
-        // $result =  DB::table('vis_kabupatens')
-        // ->select('vis_kabupatens.*',
-        // DB::raw('(select provinsi from vis_provinsis where id = vis_kabupatens.id_provinsi ) as provinsi')
-        // )
-        // ->where('vis_kabupatens.id', $request->id)        
-        // ->get();
-
-        $result =  DB::select('select * from vis_kabupatens as vk 
-        JOIN vis_provinsis as vp 
-        ON 
-        vk.id_provinsi=vp.id 
-        where vk.id ='. $request->id);
-        return response()->json(['data'=>$result]);
-    }
+ 
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  vis_kabupaten $kabupaten
+     * @param  vis_lembaga_desa $lembaga_desa
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, vis_kabupaten $kabupaten)
+    public function update(Request $request, vis_lembaga_desa $lembaga_desa)
     {
         //set validation
         $validator = Validator::make($request->all(), [
-            'id_provinsi'   => 'required',
-            'kabupaten'   => 'required'
+            'id_jenis_lembaga' => 'required',
+            'id_desa' => 'required',
+            'lembaga_desa'   => 'required'
         ]);
 
         //response error validation
@@ -120,24 +86,25 @@ class \LembagaDesaController extends Controller
         }
 
         //update to database
-        $kabupaten->update([
-            'id_provinsi' => $request->id_provinsi,
-            'kabupaten'     => $request->kabupaten
+        $lembaga_desa->update([
+            'id_jenis_lembaga'     => $request->id_jenis_lembaga,
+            'id_desa'     => $request->id_desa,
+            'lembaga_desa'     => $request->lembaga_desa
         ]);
 
-        return new KabupatenResource($kabupaten);
+        return new LembagaDesaResource($lembaga_desa);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  vis_kabupaten $kabupaten
+     * @param  vis_lembaga_desa $lembaga_desa
      * @return \Illuminate\Http\Response
      */
-    public function destroy(vis_kabupaten $kabupaten)
+    public function destroy(vis_lembaga_desa $lembaga_desa)
     {
-        $kabupaten->delete();
+        $lembaga_desa->delete();
         
-        return new KabupatenResource($kabupaten);
+        return new LembagaDesaResource($lembaga_desa);
     }
 }

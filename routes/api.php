@@ -69,7 +69,7 @@ Route::apiResource('/jenispotensidesa', App\Http\Controllers\Api\JenisPotensiDes
 /**
  * route resource jenis surat
 */
-//Route::apiResource('/jenissurat', App\Http\Controllers\Api\JenisSuratController::class);
+Route::apiResource('/jenissurat', App\Http\Controllers\Api\JenisSuratController::class);
 /**
  * route resource master surat
 */

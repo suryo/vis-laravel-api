@@ -10,7 +10,7 @@ class vis_master_surat extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id_jenis_lembaga', 'file', 'link', 'version_date'
+        'id_jenis_surat', 'file', 'link', 'version_date'
     ];
 
 }

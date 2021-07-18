@@ -44,7 +44,7 @@ class SuratKeluarController extends Controller
         //save to database
         $perihal = vis_surat_keluar::create([
             'id_jenis_surat'     => $request->id_jenis_surat,
-            'tgl_keluar'     => $request->keluar,
+            'tgl_keluar'     => $request->tgl_keluar,
             'perihal'     => $request->perihal
         ]);
 
@@ -87,7 +87,7 @@ class SuratKeluarController extends Controller
         //update to database
         $perihal->update([
             'id_jenis_surat'     => $request->id_jenis_surat,
-            'tgl_keluar'     => $request->keluar,
+            'tgl_keluar'     => $request->tgl_keluar,
             'perihal'     => $request->perihal
         ]);
 

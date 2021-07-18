@@ -13,7 +13,7 @@ with this guide, we hope knowledge transfer can be faster, and the software deve
 
 ## Installation
 
-1. Clone Repo
+1. Clone this repository
 
        git clone
 
@@ -31,7 +31,7 @@ with this guide, we hope knowledge transfer can be faster, and the software deve
 
 2. Set .env file
 
-3. Migrate database with
+3. Migrate database
 
        php artisan migrate
 

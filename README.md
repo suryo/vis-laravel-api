@@ -12,3 +12,13 @@ with this guide, we hope knowledge transfer can be faster, and the software deve
 | Branch |  |
 
 
+## Installation
+
+Use the package manager [composer](https://getcomposer.org/) to install packages.
+
+```bash
+git clone https://github.com/suryo/vis-laravel-api.git
+cd vis-laravel-api
+composer install
+
+```

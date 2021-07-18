@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\vis_kabupaten;
+use App\Models\vis_jenis_surat;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\KabupatenResource;
+use App\Http\Resources\JenisSuratResource;
 use Illuminate\Support\Facades\Validator;
 use DB;
 
-class \JenisSuratController extends Controller
+class JenisSuratController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +18,7 @@ class \JenisSuratController extends Controller
      */
     public function index()
     {
-        return new KabupatenResource(vis_kabupaten::all());
+        return new JenisSuratResource(vis_jenis_surat::all());
     }
 
     /**
@@ -31,8 +31,8 @@ class \JenisSuratController extends Controller
     {
         //set validation
         $validator = Validator::make($request->all(), [
-            'id_provinsi' => 'required',
-            'kabupaten'   => 'required'
+            'id_desa' => 'required',
+            'jenis_surat'   => 'required'
         ]);
 
         //response error validation
@@ -41,77 +41,40 @@ class \JenisSuratController extends Controller
         }
 
         //save to database
-        $kabupaten = vis_kabupaten::create([
-            'id_provinsi'     => $request->id_provinsi,
-            'kabupaten'     => $request->kabupaten
+        $jenis_surat = vis_jenis_surat::create([
+            'id_desa'     => $request->id_desa,
+            'jenis_surat'     => $request->jenis_surat
         ]);
 
-        return new KabupatenResource($kabupaten);
+        return new JenisSuratResource($jenis_surat);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  vis_kabupaten $kabupaten
+     * @param  vis_jenis_surat $jenis_surat
      * @return \Illuminate\Http\Response
      */
-    public function show(vis_kabupaten $kabupaten)
+    public function show(vis_jenis_surat $jenis_surat)
     {
-        return new KabupatenResource($kabupaten);
+        return new JenisSuratResource($jenis_surat);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  vis_kabupaten $kabupaten
-     * @return \Illuminate\Http\Response
-     */
-    public function showWithProvinsi(vis_kabupaten $kabupaten)
-    {
-        //dd("asik");
-        $result =  DB::table('vis_kabupatens')
-        ->join('vis_provinsis', 'vis_provinsis.id', '=', 'vis_kabupatens.id_provinsi')
-        ->get();
-        return response()->json(['data'=>$result]);
-    }
-
-     /**
-     * Display the specified resource.
-     * @param  \Illuminate\Http\Request  $request
-     * @param  vis_kabupaten $kabupaten
-     * @return \Illuminate\Http\Response
-     */
-    public function showWithProvinsibyId(Request $request)
-    {
-        //dd($request->id);
-        // $result =  DB::table('vis_kabupatens')
-        // ->select('vis_kabupatens.*',
-        // DB::raw('(select provinsi from vis_provinsis where id = vis_kabupatens.id_provinsi ) as provinsi')
-        // )
-        // ->where('vis_kabupatens.id', $request->id)        
-        // ->get();
-
-        $result =  DB::select('select * from vis_kabupatens as vk 
-        JOIN vis_provinsis as vp 
-        ON 
-        vk.id_provinsi=vp.id 
-        where vk.id ='. $request->id);
-        return response()->json(['data'=>$result]);
-    }
+   
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  vis_kabupaten $kabupaten
+     * @param  vis_jenis_surat $jenis_surat
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, vis_kabupaten $kabupaten)
+    public function update(Request $request, vis_jenis_surat $jenis_surat)
     {
         //set validation
         $validator = Validator::make($request->all(), [
-            'id_provinsi'   => 'required',
-            'kabupaten'   => 'required'
+            'id_desa' => 'required',
+            'jenis_surat'   => 'required'
         ]);
 
         //response error validation
@@ -120,24 +83,24 @@ class \JenisSuratController extends Controller
         }
 
         //update to database
-        $kabupaten->update([
-            'id_provinsi' => $request->id_provinsi,
-            'kabupaten'     => $request->kabupaten
+        $jenis_surat->update([
+            'id_desa'     => $request->id_desa,
+            'jenis_surat'     => $request->jenis_surat
         ]);
 
-        return new KabupatenResource($kabupaten);
+        return new JenisSuratResource($jenis_surat);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  vis_kabupaten $kabupaten
+     * @param  vis_jenis_surat $jenis_surat
      * @return \Illuminate\Http\Response
      */
-    public function destroy(vis_kabupaten $kabupaten)
+    public function destroy(vis_jenis_surat $jenis_surat)
     {
-        $kabupaten->delete();
+        $jenis_surat->delete();
         
-        return new KabupatenResource($kabupaten);
+        return new JenisSuratResource($jenis_surat);
     }
 }

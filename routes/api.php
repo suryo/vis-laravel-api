@@ -57,7 +57,7 @@ Route::apiResource('/kartukeluarga', App\Http\Controllers\Api\KartuKeluargaContr
 /**
  * route resource jenis lembaga desa
 */
-//Route::apiResource('/jenislembagadesa', App\Http\Controllers\Api\JenisLembagaDesaController::class);
+Route::apiResource('/jenislembagadesa', App\Http\Controllers\Api\JenisLembagaDesaController::class);
 /**
  * route resource lembaga desa
 */

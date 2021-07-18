@@ -22,3 +22,15 @@ cd vis-laravel-api
 composer install
 
 ```
+
+## Usage
+You can use laravel built-in server to run local server(for development).
+
+```
+cd api
+php artisan serve
+
+```
+
+## Created By
+Suryo Atmojo--2021

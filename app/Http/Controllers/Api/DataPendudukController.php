@@ -46,7 +46,7 @@ class DataPendudukController extends Controller
         $datapenduduk = vis_data_penduduk::create([
             'no_kk'     => $request->no_kk,
             'id_desa'     => $request->id_desa,
-            'nama_penduduk'     => $request->nama_ppenduduk,
+            'nama_penduduk'     => $request->nama_penduduk,
             'jenis_kelamin'     => $request->jenis_kelamin,
             'alamat_penduduk'     => $request->alamat_penduduk
         ]);
@@ -94,7 +94,7 @@ class DataPendudukController extends Controller
         $datapenduduk->update([
             'no_kk'     => $request->no_kk,
             'id_desa'     => $request->id_desa,
-            'nama_penduduk'     => $request->nama_ppenduduk,
+            'nama_penduduk'     => $request->nama_penduduk,
             'jenis_kelamin'     => $request->jenis_kelamin,
             'alamat_penduduk'     => $request->alamat_penduduk
         ]);

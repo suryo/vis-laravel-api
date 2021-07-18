@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\vis_kabupaten;
+use App\Models\vis_master_surat;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\KabupatenResource;
+use App\Http\Resources\MasterSuratResource;
 use Illuminate\Support\Facades\Validator;
 use DB;
 
-class \MasterSuratController extends Controller
+class MasterSuratController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +18,7 @@ class \MasterSuratController extends Controller
      */
     public function index()
     {
-        return new KabupatenResource(vis_kabupaten::all());
+        return new MasterSuratResource(vis_master_surat::all());
     }
 
     /**
@@ -31,8 +31,10 @@ class \MasterSuratController extends Controller
     {
         //set validation
         $validator = Validator::make($request->all(), [
-            'id_provinsi' => 'required',
-            'kabupaten'   => 'required'
+            'id_jenis_surat' => 'required',
+            'file' => 'required',
+            'link' => 'required',
+            'version_date'   => 'required'
         ]);
 
         //response error validation
@@ -41,77 +43,44 @@ class \MasterSuratController extends Controller
         }
 
         //save to database
-        $kabupaten = vis_kabupaten::create([
-            'id_provinsi'     => $request->id_provinsi,
-            'kabupaten'     => $request->kabupaten
+        $kabupaten = vis_master_surat::create([
+            'id_jenis_surat'     => $request->id_jenis_surat,
+            'file'     => $request->file,
+            'link'     => $request->link,
+            'version_date'     => $request->version_date
         ]);
 
-        return new KabupatenResource($kabupaten);
+        return new MasterSuratResource($kabupaten);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  vis_kabupaten $kabupaten
+     * @param  vis_master_surat $kabupaten
      * @return \Illuminate\Http\Response
      */
-    public function show(vis_kabupaten $kabupaten)
+    public function show(vis_master_surat $kabupaten)
     {
-        return new KabupatenResource($kabupaten);
+        return new MasterSuratResource($kabupaten);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  vis_kabupaten $kabupaten
-     * @return \Illuminate\Http\Response
-     */
-    public function showWithProvinsi(vis_kabupaten $kabupaten)
-    {
-        //dd("asik");
-        $result =  DB::table('vis_kabupatens')
-        ->join('vis_provinsis', 'vis_provinsis.id', '=', 'vis_kabupatens.id_provinsi')
-        ->get();
-        return response()->json(['data'=>$result]);
-    }
-
-     /**
-     * Display the specified resource.
-     * @param  \Illuminate\Http\Request  $request
-     * @param  vis_kabupaten $kabupaten
-     * @return \Illuminate\Http\Response
-     */
-    public function showWithProvinsibyId(Request $request)
-    {
-        //dd($request->id);
-        // $result =  DB::table('vis_kabupatens')
-        // ->select('vis_kabupatens.*',
-        // DB::raw('(select provinsi from vis_provinsis where id = vis_kabupatens.id_provinsi ) as provinsi')
-        // )
-        // ->where('vis_kabupatens.id', $request->id)        
-        // ->get();
-
-        $result =  DB::select('select * from vis_kabupatens as vk 
-        JOIN vis_provinsis as vp 
-        ON 
-        vk.id_provinsi=vp.id 
-        where vk.id ='. $request->id);
-        return response()->json(['data'=>$result]);
-    }
+   
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  vis_kabupaten $kabupaten
+     * @param  vis_master_surat $kabupaten
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, vis_kabupaten $kabupaten)
+    public function update(Request $request, vis_master_surat $kabupaten)
     {
         //set validation
         $validator = Validator::make($request->all(), [
-            'id_provinsi'   => 'required',
-            'kabupaten'   => 'required'
+            'id_jenis_surat' => 'required',
+            'file' => 'required',
+            'link' => 'required',
+            'version_date'   => 'required'
         ]);
 
         //response error validation
@@ -121,23 +90,25 @@ class \MasterSuratController extends Controller
 
         //update to database
         $kabupaten->update([
-            'id_provinsi' => $request->id_provinsi,
-            'kabupaten'     => $request->kabupaten
+            'id_jenis_surat'     => $request->id_jenis_surat,
+            'file'     => $request->file,
+            'link'     => $request->link,
+            'version_date'     => $request->version_date
         ]);
 
-        return new KabupatenResource($kabupaten);
+        return new MasterSuratResource($kabupaten);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  vis_kabupaten $kabupaten
+     * @param  vis_master_surat $kabupaten
      * @return \Illuminate\Http\Response
      */
-    public function destroy(vis_kabupaten $kabupaten)
+    public function destroy(vis_master_surat $kabupaten)
     {
         $kabupaten->delete();
         
-        return new KabupatenResource($kabupaten);
+        return new MasterSuratResource($kabupaten);
     }
 }

@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\vis_kabupaten;
+use App\Models\vis_surat_keluar;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\KabupatenResource;
+use App\Http\Resources\SuratKeluarResource;
 use Illuminate\Support\Facades\Validator;
 use DB;
 
-class \SuratKeluarController extends Controller
+class SuratKeluarController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +18,7 @@ class \SuratKeluarController extends Controller
      */
     public function index()
     {
-        return new KabupatenResource(vis_kabupaten::all());
+        return new SuratKeluarResource(vis_surat_keluar::all());
     }
 
     /**
@@ -31,8 +31,9 @@ class \SuratKeluarController extends Controller
     {
         //set validation
         $validator = Validator::make($request->all(), [
-            'id_provinsi' => 'required',
-            'kabupaten'   => 'required'
+            'id_jenis_surat' => 'required',
+            'tgl_keluar' => 'required',
+            'perihal'   => 'required'
         ]);
 
         //response error validation
@@ -41,77 +42,41 @@ class \SuratKeluarController extends Controller
         }
 
         //save to database
-        $kabupaten = vis_kabupaten::create([
-            'id_provinsi'     => $request->id_provinsi,
-            'kabupaten'     => $request->kabupaten
+        $perihal = vis_surat_keluar::create([
+            'id_jenis_surat'     => $request->id_jenis_surat,
+            'tgl_keluar'     => $request->keluar,
+            'perihal'     => $request->perihal
         ]);
 
-        return new KabupatenResource($kabupaten);
+        return new SuratKeluarResource($perihal);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  vis_kabupaten $kabupaten
+     * @param  vis_surat_keluar $perihal
      * @return \Illuminate\Http\Response
      */
-    public function show(vis_kabupaten $kabupaten)
+    public function show(vis_surat_keluar $perihal)
     {
-        return new KabupatenResource($kabupaten);
+        return new SuratKeluarResource($perihal);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  vis_kabupaten $kabupaten
-     * @return \Illuminate\Http\Response
-     */
-    public function showWithProvinsi(vis_kabupaten $kabupaten)
-    {
-        //dd("asik");
-        $result =  DB::table('vis_kabupatens')
-        ->join('vis_provinsis', 'vis_provinsis.id', '=', 'vis_kabupatens.id_provinsi')
-        ->get();
-        return response()->json(['data'=>$result]);
-    }
-
-     /**
-     * Display the specified resource.
-     * @param  \Illuminate\Http\Request  $request
-     * @param  vis_kabupaten $kabupaten
-     * @return \Illuminate\Http\Response
-     */
-    public function showWithProvinsibyId(Request $request)
-    {
-        //dd($request->id);
-        // $result =  DB::table('vis_kabupatens')
-        // ->select('vis_kabupatens.*',
-        // DB::raw('(select provinsi from vis_provinsis where id = vis_kabupatens.id_provinsi ) as provinsi')
-        // )
-        // ->where('vis_kabupatens.id', $request->id)        
-        // ->get();
-
-        $result =  DB::select('select * from vis_kabupatens as vk 
-        JOIN vis_provinsis as vp 
-        ON 
-        vk.id_provinsi=vp.id 
-        where vk.id ='. $request->id);
-        return response()->json(['data'=>$result]);
-    }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  vis_kabupaten $kabupaten
+     * @param  vis_surat_keluar $perihal
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, vis_kabupaten $kabupaten)
+    public function update(Request $request, vis_surat_keluar $perihal)
     {
         //set validation
         $validator = Validator::make($request->all(), [
-            'id_provinsi'   => 'required',
-            'kabupaten'   => 'required'
+            'id_jenis_surat' => 'required',
+            'tgl_keluar' => 'required',
+            'perihal'   => 'required'
         ]);
 
         //response error validation
@@ -120,24 +85,25 @@ class \SuratKeluarController extends Controller
         }
 
         //update to database
-        $kabupaten->update([
-            'id_provinsi' => $request->id_provinsi,
-            'kabupaten'     => $request->kabupaten
+        $perihal->update([
+            'id_jenis_surat'     => $request->id_jenis_surat,
+            'tgl_keluar'     => $request->keluar,
+            'perihal'     => $request->perihal
         ]);
 
-        return new KabupatenResource($kabupaten);
+        return new SuratKeluarResource($perihal);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  vis_kabupaten $kabupaten
+     * @param  vis_surat_keluar $perihal
      * @return \Illuminate\Http\Response
      */
-    public function destroy(vis_kabupaten $kabupaten)
+    public function destroy(vis_surat_keluar $perihal)
     {
-        $kabupaten->delete();
+        $perihal->delete();
         
-        return new KabupatenResource($kabupaten);
+        return new SuratKeluarResource($perihal);
     }
 }

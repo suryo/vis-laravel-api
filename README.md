@@ -15,27 +15,27 @@ with this guide, we hope knowledge transfer can be faster, and the software deve
 
 1. Clone Repo
 
-   `git clone`
+   `git clone
 
 2. Open Folder
 
-   `cd vis-laravel-api`
+   `cd vis-laravel-api
 
 3. Install Composer
 
-   `composer install`
+   `composer install
 
 ## Setup Database
 
 1. Make database with name
 
-   `db_vis`
+  `db_vis
 
 2. Set .env file
 
 3. Migrate database with
   
-  `php artisan migrate`
+  `php artisan migrate
 
 ## Usage
 

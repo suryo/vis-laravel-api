@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\vis_kabupaten;
+use App\Models\vis_user;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\KabupatenResource;
+use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Validator;
 use DB;
 
-class \UserController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +18,7 @@ class \UserController extends Controller
      */
     public function index()
     {
-        return new KabupatenResource(vis_kabupaten::all());
+        return new UserResource(vis_user::all());
     }
 
     /**
@@ -31,8 +31,8 @@ class \UserController extends Controller
     {
         //set validation
         $validator = Validator::make($request->all(), [
-            'id_provinsi' => 'required',
-            'kabupaten'   => 'required'
+            'nik' => 'required',
+            'password'   => 'required'
         ]);
 
         //response error validation
@@ -41,77 +41,39 @@ class \UserController extends Controller
         }
 
         //save to database
-        $kabupaten = vis_kabupaten::create([
-            'id_provinsi'     => $request->id_provinsi,
-            'kabupaten'     => $request->kabupaten
+        $user = vis_user::create([
+            'nik'     => $request->nik,
+            'password'     => $request->password
         ]);
 
-        return new KabupatenResource($kabupaten);
+        return new UserResource($user);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  vis_kabupaten $kabupaten
+     * @param  vis_user $user
      * @return \Illuminate\Http\Response
      */
-    public function show(vis_kabupaten $kabupaten)
+    public function show(vis_user $user)
     {
-        return new KabupatenResource($kabupaten);
+        return new UserResource($user);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  vis_kabupaten $kabupaten
-     * @return \Illuminate\Http\Response
-     */
-    public function showWithProvinsi(vis_kabupaten $kabupaten)
-    {
-        //dd("asik");
-        $result =  DB::table('vis_kabupatens')
-        ->join('vis_provinsis', 'vis_provinsis.id', '=', 'vis_kabupatens.id_provinsi')
-        ->get();
-        return response()->json(['data'=>$result]);
-    }
-
-     /**
-     * Display the specified resource.
-     * @param  \Illuminate\Http\Request  $request
-     * @param  vis_kabupaten $kabupaten
-     * @return \Illuminate\Http\Response
-     */
-    public function showWithProvinsibyId(Request $request)
-    {
-        //dd($request->id);
-        // $result =  DB::table('vis_kabupatens')
-        // ->select('vis_kabupatens.*',
-        // DB::raw('(select provinsi from vis_provinsis where id = vis_kabupatens.id_provinsi ) as provinsi')
-        // )
-        // ->where('vis_kabupatens.id', $request->id)        
-        // ->get();
-
-        $result =  DB::select('select * from vis_kabupatens as vk 
-        JOIN vis_provinsis as vp 
-        ON 
-        vk.id_provinsi=vp.id 
-        where vk.id ='. $request->id);
-        return response()->json(['data'=>$result]);
-    }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  vis_kabupaten $kabupaten
+     * @param  vis_user $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, vis_kabupaten $kabupaten)
+    public function update(Request $request, vis_user $user)
     {
         //set validation
         $validator = Validator::make($request->all(), [
-            'id_provinsi'   => 'required',
-            'kabupaten'   => 'required'
+            'nik' => 'required',
+            'password'   => 'required'
         ]);
 
         //response error validation
@@ -120,24 +82,24 @@ class \UserController extends Controller
         }
 
         //update to database
-        $kabupaten->update([
-            'id_provinsi' => $request->id_provinsi,
-            'kabupaten'     => $request->kabupaten
+        $user->update([
+            'nik'     => $request->nik,
+            'password'     => $request->password
         ]);
 
-        return new KabupatenResource($kabupaten);
+        return new UserResource($user);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  vis_kabupaten $kabupaten
+     * @param  vis_user $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(vis_kabupaten $kabupaten)
+    public function destroy(vis_user $user)
     {
-        $kabupaten->delete();
+        $user->delete();
         
-        return new KabupatenResource($kabupaten);
+        return new UserResource($user);
     }
 }

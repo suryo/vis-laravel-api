@@ -85,11 +85,11 @@ Route::apiResource('/datapenduduk', App\Http\Controllers\Api\DataPendudukControl
 /**
  * route resource perangkat desa
 */
-//Route::apiResource('/perangkatdesa', App\Http\Controllers\Api\PerangkatDesaController::class);
+Route::apiResource('/perangkatdesa', App\Http\Controllers\Api\PerangkatDesaController::class);
 /**
  * route resource user
 */
-//Route::apiResource('/user', App\Http\Controllers\Api\UserController::class);
+Route::apiResource('/user', App\Http\Controllers\Api\UserController::class);
 
 
 //Route::apiResource('/datapenduduk', App\Http\Controllers\Api\DataPendudukController::class);

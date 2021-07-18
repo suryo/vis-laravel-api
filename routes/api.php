@@ -65,7 +65,7 @@ Route::apiResource('/lembagadesa', App\Http\Controllers\Api\LembagaDesaControlle
 /**
  * route resource jenis potensi desa
 */
-//Route::apiResource('/jenispotensidesa', App\Http\Controllers\Api\JenisPotensiDesaController::class);
+Route::apiResource('/jenispotensidesa', App\Http\Controllers\Api\JenisPotensiDesaController::class);
 /**
  * route resource jenis surat
 */

@@ -13,9 +13,14 @@ class CreateVisKotasTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('vis_kotas');
         Schema::create('vis_kotas', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('id_provinsi');
+            $table->string('kota');
             $table->timestamps();
+
+            $table->foreign('id_provinsi')->references('id')->on('vis_provinsis');
         });
     }
 

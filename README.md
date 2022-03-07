@@ -29,7 +29,8 @@ You can use laravel built-in server to run local server(for development).
 ```
 cd api
 php artisan serve
-
+php artisan route:list
+php -S 127.0.0.1:8000 -t public
 ```
 
 ## Created By

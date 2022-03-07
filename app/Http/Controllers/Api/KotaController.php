@@ -11,14 +11,29 @@ use DB;
 
 class KotaController extends Controller
 {
-  /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+    protected $vis_kota;
+    public function __construct(vis_kota $vis_kota)
+    {
+        $this->vis_kota = $vis_kota;
+    }
     public function index()
     {
-        return new KotaResource(vis_kota::all());
+
+
+
+        $arrayresult = [];
+        $result = [
+            'name' => 'EVENT_APPROVAL',
+            'data' => vis_kota::all(),
+            'status' => 'Add success', 'code' => 200
+        ];
+
+        return new KotaResource($result);
     }
 
     /**
@@ -57,7 +72,8 @@ class KotaController extends Controller
      */
     public function show(vis_kota $kota)
     {
-        return new KotaResource($kota);
+        return $this->showWithProvinsi($kota);
+        //return new KotaResource($kota);
     }
 
     /**
@@ -70,12 +86,12 @@ class KotaController extends Controller
     {
         //dd("asik");
         $result =  DB::table('vis_kotas')
-        ->join('vis_provinsis', 'vis_provinsis.id', '=', 'vis_kotas.id_provinsi')
-        ->get();
-        return response()->json(['data'=>$result]);
+            ->join('vis_provinsis', 'vis_provinsis.id', '=', 'vis_kotas.id_provinsi')
+            ->get();
+        return response()->json(['data' => $result]);
     }
 
-     /**
+    /**
      * Display the specified resource.
      * @param  \Illuminate\Http\Request  $request
      * @param  vis_kota $kota
@@ -95,8 +111,8 @@ class KotaController extends Controller
         JOIN vis_provinsis as vp 
         ON 
         vk.id_provinsi=vp.id 
-        where vk.id ='. $request->id);
-        return response()->json(['data'=>$result]);
+        where vk.id =' . $request->id);
+        return response()->json(['data' => $result]);
     }
 
     /**
@@ -106,8 +122,33 @@ class KotaController extends Controller
      * @param  vis_kota $kota
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, vis_kota $kota)
+    public function update(Request $request, int $id, vis_kota $kota)
     {
+
+        $data = $this->validate($request, [
+            'kota' => 'required|max:100',
+        ]);
+
+        try {
+            $vis_kota = $this->vis_kota->findOrFail($id);
+            $vis_kota->fill($data);
+            $vis_kota->save();
+
+            //return successful response
+            return response()->json([
+                'status' => true,
+                'message' => 'Data Kota berhasil diupdate',
+                'data' => $vis_kota
+            ], 201);
+        } catch (\Exception $e) {
+            //return error message
+            return response()->json([
+                'status' => false,
+                'message' => 'Update data kota gagal'
+            ], 409);
+        }
+
+
         //set validation
         $validator = Validator::make($request->all(), [
             'id_provinsi'   => 'required',
@@ -118,7 +159,6 @@ class KotaController extends Controller
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
-
         //update to database
         $kota->update([
             'id_provinsi' => $request->id_provinsi,
@@ -134,10 +174,29 @@ class KotaController extends Controller
      * @param  vis_kota $kota
      * @return \Illuminate\Http\Response
      */
-    public function destroy(vis_kota $kota)
+    public function destroy(vis_kota $kota, int $id)
     {
-        $kota->delete();
-        
-        return new KotaResource($kota);
+        try {
+            $Vis_kota = $this->vis_kota->findOrFail($id);
+            $Vis_kota->delete();
+
+            //return successful response
+            return response()->json([
+                'status' => true,
+                'message' => 'Data Provinsi berhasil dihapus',
+                'user' => $Vis_kota
+            ], 201);
+        } catch (\Exception $e) {
+
+            //return error message
+            return response()->json([
+                'status' => false,
+                'message' => 'Hapus data provinsi gagal'
+            ], 409);
+        }
+        // dd($kota);
+        // $kota->delete();
+
+        // return new KotaResource($kota);
     }
 }

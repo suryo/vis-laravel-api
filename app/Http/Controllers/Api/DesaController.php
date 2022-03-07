@@ -18,7 +18,14 @@ class DesaController extends Controller
      */
     public function index()
     {
-        return new DesaResource(vis_desa::all());
+        $arrayresult=[];
+        $result = [
+            'name' => 'EVENT_APPROVAL',
+            'data' => vis_desa::all(),
+            'status' => 'Add success', 'code' => 200
+        ];
+
+        return new DesaResource($result);
     }
 
     /**
@@ -46,7 +53,7 @@ class DesaController extends Controller
         }
 
         //save to database
-        $kabupaten = vis_desa::create([
+        $desa = vis_desa::create([
             'id_provinsi'     => $request->id_provinsi,
             'id_kota'     => $request->id_kota,
             'id_kabupaten'     => $request->id_kabupaten,
@@ -56,7 +63,7 @@ class DesaController extends Controller
             'deskripsi'     => $request->deskripsi
         ]);
 
-        return new DesaResource($kabupaten);
+        return new DesaResource($desa);
     }
 
     /**
@@ -65,9 +72,9 @@ class DesaController extends Controller
      * @param  vis_desa $kabupaten
      * @return \Illuminate\Http\Response
      */
-    public function show(vis_desa $kabupaten)
+    public function show(vis_desa $desa)
     {
-        return new DesaResource($kabupaten);
+        return new DesaResource($desa);
     }
 
     /**
@@ -77,7 +84,7 @@ class DesaController extends Controller
      * @param  vis_desa $kabupaten
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, vis_desa $kabupaten)
+    public function update(Request $request, vis_desa $desa)
     {
         //set validation
         $validator = Validator::make($request->all(), [
@@ -96,7 +103,7 @@ class DesaController extends Controller
         }
 
         //update to database
-        $kabupaten->update([
+        $desa->update([
             'id_provinsi'     => $request->id_provinsi,
             'id_kota'     => $request->id_kota,
             'id_kabupaten'     => $request->id_kabupaten,
@@ -106,19 +113,19 @@ class DesaController extends Controller
             'deskripsi'     => $request->deskripsi
         ]);
 
-        return new DesaResource($kabupaten);
+        return new DesaResource($desa);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  vis_desa $kabupaten
+     * @param  vis_desa $desa
      * @return \Illuminate\Http\Response
      */
-    public function destroy(vis_desa $kabupaten)
+    public function destroy(vis_desa $desa)
     {
-        $kabupaten->delete();
+        $desa->delete();
         
-        return new DesaResource($kabupaten);
+        return new DesaResource($desa);
     }
 }

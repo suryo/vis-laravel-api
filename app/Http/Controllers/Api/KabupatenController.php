@@ -18,7 +18,16 @@ class KabupatenController extends Controller
      */
     public function index()
     {
-        return new KabupatenResource(vis_kabupaten::all());
+        // return new KabupatenResource(vis_kabupaten::all());
+
+        // $arrayresult = [];
+        $result = [
+            'name' => 'Kabupaten',
+            'data' =>  $this->showWithProvinsi(),
+            'status' => 'success', 'code' => 200
+        ];
+
+        return new KabupatenResource($result);
     }
 
     /**
@@ -66,13 +75,13 @@ class KabupatenController extends Controller
      * @param  vis_kabupaten $kabupaten
      * @return \Illuminate\Http\Response
      */
-    public function showWithProvinsi(vis_kabupaten $kabupaten)
+    public function showWithProvinsi()
     {
         //dd("asik");
         $result =  DB::table('vis_kabupatens')
         ->join('vis_provinsis', 'vis_provinsis.id', '=', 'vis_kabupatens.id_provinsi')
         ->get();
-        return response()->json(['data'=>$result]);
+        return $result;
     }
 
      /**

@@ -16,9 +16,54 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return new UserResource(vis_user::all());
+        echo "ayam";
+      
+        // dump("ayam");
+        // dump("asik");
+        // dump("goreng");
+        // dump("tes");
+        // die;
+        
+        // return new UserResource(vis_user::all());
+    }
+
+    public function getuserlogin(Request $request)
+    {   
+        $username = ($request->username);
+        $password = md5(($request->pwd));
+        
+
+        $result =  DB::select(
+            'select * from vis_users as u
+        where u.username ="' . $username. '" AND u.password ="'. $password.'"'
+        );
+        $login = response()->json(['data' => $result]);
+        // dump($username);
+        // dump($password);
+        //dump($login);
+        // dump($result[0]->id);
+        // die;
+        if (!empty($result))
+        {
+            $result = [
+                'name' => 'getuser',
+                'status' =>  'ok',
+                'id' => $result[0]->id,
+                'meesage' => 'udah ok gaes'
+            ];
+        }
+        else
+        {
+            $result = [
+                'name' => 'getuser',
+                'status' =>  'null',
+               
+            ];
+        }
+
+        return new UserResource($result);
     }
 
     /**
@@ -31,7 +76,7 @@ class UserController extends Controller
     {
         //set validation
         $validator = Validator::make($request->all(), [
-            'nik' => 'required',
+            'username' => 'required',
             'password'   => 'required'
         ]);
 
@@ -42,10 +87,12 @@ class UserController extends Controller
 
         //save to database
         $user = vis_user::create([
-            'nik'     => $request->nik,
-            'password'     => $request->password
+            'username'     => $request->username,
+            'password'     => md5($request->password)
         ]);
-
+        // dump($request->password);
+        // dump( md5($request->password));
+        // die;
         return new UserResource($user);
     }
 
@@ -70,24 +117,30 @@ class UserController extends Controller
      */
     public function update(Request $request, vis_user $user)
     {
+        //  dd($request->username);
         //set validation
-        $validator = Validator::make($request->all(), [
-            'nik' => 'required',
-            'password'   => 'required'
-        ]);
+        // $validator = Validator::make($request->all(), [
+        //     'username' => 'required',
+        //     'password'   => 'required'
+        // ]);
 
-        //response error validation
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 400);
-        }
+        // //response error validation
+        // if ($validator->fails()) {
+        //     return response()->json($validator->errors(), 400);
+        // }
 
         //update to database
         $user->update([
-            'nik'     => $request->nik,
-            'password'     => $request->password
+            'username'     => $request->username,
+            'password'     => md5($request->password)
         ]);
 
         return new UserResource($user);
+    }
+    public function getRequest(Request $request)
+    {
+        $req = $request->username;
+        return $req;
     }
 
     /**
@@ -99,7 +152,7 @@ class UserController extends Controller
     public function destroy(vis_user $user)
     {
         $user->delete();
-        
+
         return new UserResource($user);
     }
 }

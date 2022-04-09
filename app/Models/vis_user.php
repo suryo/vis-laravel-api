@@ -10,7 +10,7 @@ class vis_user extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nik', 'password'
+        'username', 'password'
     ];
 
 }

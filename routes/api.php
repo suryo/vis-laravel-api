@@ -29,6 +29,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::apiResource('/user', App\Http\Controllers\Api\UserController::class);
 Route::get('/userlogin', 'App\Http\Controllers\Api\UserController@getuserlogin');
 Route::put('/user', 'App\Http\Controllers\Api\UserController@update');
+
+
+/**
+ * route resource provinsi
+*/
+Route::apiResource('/tsukamoto', App\Http\Controllers\Api\TsukamotoController::class);
+
+
 /**
  * route resource provinsi
 */

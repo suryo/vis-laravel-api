@@ -22,6 +22,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //Route::get('/kabupaten/all', 'App\Http\Controllers\Api\KabupatenController@showWithProvinsi');
 // Mengambil Satu kabupaten dengan provinsi
 //Route::get('/kabupaten/all/{id}', 'App\Http\Controllers\Api\KabupatenController@showWithProvinsibyId');
+
+/**
+ * route resource desa
+*/
+Route::apiResource('/user', App\Http\Controllers\Api\UserController::class);
+Route::get('/userlogin', 'App\Http\Controllers\Api\UserController@getuserlogin');
+Route::put('/user', 'App\Http\Controllers\Api\UserController@update');
 /**
  * route resource provinsi
 */

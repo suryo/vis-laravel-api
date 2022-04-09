@@ -39,6 +39,14 @@ class KabupatenController extends Controller
     public function store(Request $request)
     {
         //set validation
+        $data = json_decode($request->getContent(), true);
+
+        $datainput = [];
+        //how to get data from input;
+        $datainput["id_provinsi"] = $request->get('id_provinsi');
+        $datainput["kabupaten"] = $request->get('kabupaten');
+
+        //validator, if data empty
         $validator = Validator::make($request->all(), [
             'id_provinsi' => 'required',
             'kabupaten'   => 'required'
@@ -49,13 +57,46 @@ class KabupatenController extends Controller
             return response()->json($validator->errors(), 400);
         }
 
+        $simpan= $this->savedata($datainput);
+        $panjang_array = count($datainput["kabupaten"]);
+        //dd($panjang_array);
         //save to database
-        $kabupaten = vis_kabupaten::create([
-            'id_provinsi'     => $request->id_provinsi,
-            'kabupaten'     => $request->kabupaten
-        ]);
+        // $kabupaten = vis_kabupaten::create([
+        //     'id_provinsi'     => $request->id_provinsi,
+        //     'kabupaten'     => $request->kabupaten
+        // ]);
+        //die;
 
-        return new KabupatenResource($kabupaten);
+
+        $result = [
+            'name' => 'Kabupaten',
+            'data' =>  $simpan,
+            'status' => 'success', 'code' => 200
+        ];
+
+
+        return new KabupatenResource($result);
+    }
+
+    public function savedata($datainput)
+    {
+        $allresult = array();
+        $panjang_array = count($datainput["kabupaten"]);
+        for ($x = 0; $x < $panjang_array; $x++) {
+            $kabupaten = vis_kabupaten::create([
+                'id_provinsi'     => $datainput["id_provinsi"][$x],
+                'kabupaten'     => $datainput["kabupaten"][$x]
+            ]);
+            $result = [
+                'id_provinsi'     => $datainput["id_provinsi"][$x],
+                'kabupaten'     => $datainput["kabupaten"][$x],
+                'status' => 'add success', 'code' => 200
+            ];
+            array_push($allresult, $result);
+            
+        }
+        return $allresult;
+
     }
 
     /**
@@ -79,12 +120,12 @@ class KabupatenController extends Controller
     {
         //dd("asik");
         $result =  DB::table('vis_kabupatens')
-        ->join('vis_provinsis', 'vis_provinsis.id', '=', 'vis_kabupatens.id_provinsi')
-        ->get();
+            ->join('vis_provinsis', 'vis_provinsis.id', '=', 'vis_kabupatens.id_provinsi')
+            ->get();
         return $result;
     }
 
-     /**
+    /**
      * Display the specified resource.
      * @param  \Illuminate\Http\Request  $request
      * @param  vis_kabupaten $kabupaten
@@ -104,8 +145,8 @@ class KabupatenController extends Controller
         JOIN vis_provinsis as vp 
         ON 
         vk.id_provinsi=vp.id 
-        where vk.id ='. $request->id);
-        return response()->json(['data'=>$result]);
+        where vk.id =' . $request->id);
+        return response()->json(['data' => $result]);
     }
 
     /**
@@ -146,7 +187,7 @@ class KabupatenController extends Controller
     public function destroy(vis_kabupaten $kabupaten)
     {
         $kabupaten->delete();
-        
+
         return new KabupatenResource($kabupaten);
     }
 }

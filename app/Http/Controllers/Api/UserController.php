@@ -18,7 +18,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        echo "ayam";
+        // echo "ayam";
       
         // dump("ayam");
         // dump("asik");
@@ -26,7 +26,7 @@ class UserController extends Controller
         // dump("tes");
         // die;
         
-        // return new UserResource(vis_user::all());
+        return new UserResource(vis_user::all());
     }
 
     public function getuserlogin(Request $request)

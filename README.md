@@ -33,3 +33,8 @@ php artisan make:controller Api\TenantController -r
 ## Check Route
 php artisan route:list
 
+## API DOCUMENTATION
+1. run php artisan l5-swagger:generate
+2. run php artisan server
+3. open url -> http://127.0.0.1:8000/api/documentation
+

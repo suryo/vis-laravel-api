@@ -8,24 +8,47 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Validator;
 use DB;
+/**
+
+    @OA\Info(
+    title="API VILLAGE INFORMATION SYSTEM ",
+    version="1.0.0",
+    )
+    */
 
 class UserController extends Controller
-{
+{  
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
+     /**
+    * @OA\Get(
+    *      path="/user",
+    *      operationId="getUserList",
+    *      tags={"Users"},
+    *      summary="Get list of users",
+    *      description="Returns list of users",
+    *      @OA\Response(
+    *          response=200,
+    *          description="Successful operation",
+    *          )
+    *       ),
+    *      @OA\Response(
+    *          response=401,
+    *          description="Unauthenticated",
+    *      ),
+    *      @OA\Response(
+    *          response=403,
+    *          description="Forbidden"
+    *      )
+    *     )
+    */
     public function index(Request $request)
     {
-        // echo "ayam";
-      
-        // dump("ayam");
-        // dump("asik");
-        // dump("goreng");
-        // dump("tes");
-        // die;
-        
+       
         return new UserResource(vis_user::all());
     }
 
@@ -66,11 +89,44 @@ class UserController extends Controller
         return new UserResource($result);
     }
 
+
+
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
+     */
+
+     /**
+     * @OA\Post(
+     *      path="/user",
+     *      operationId="storeUser",
+     *      tags={"Users"},
+     *      summary="Store new user",
+     *      description="Returns user data",
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent()
+     *      ),
+     *      @OA\Response(
+     *          response=201,
+     *          description="Successful operation",
+     *          @OA\JsonContent()
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     * )
      */
     public function store(Request $request)
     {
@@ -115,6 +171,50 @@ class UserController extends Controller
      * @param  vis_user $user
      * @return \Illuminate\Http\Response
      */
+
+     /**
+     * @OA\Put(
+     *      path="/user/{id}",
+     *      operationId="updateUser",
+     *      tags={"Users"},
+     *      summary="Update existing user",
+     *      description="Returns updated user data",
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="User id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent()
+     *      ),
+     *      @OA\Response(
+     *          response=202,
+     *          description="Successful operation",
+     *          @OA\JsonContent()
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Resource Not Found"
+     *      )
+     * )
+     */
     public function update(Request $request, vis_user $user)
     {
         //  dd($request->username);
@@ -148,6 +248,42 @@ class UserController extends Controller
      *
      * @param  vis_user $user
      * @return \Illuminate\Http\Response
+     */
+
+     /**
+     * @OA\Delete(
+     *      path="/user/{id}",
+     *      operationId="deleteUser",
+     *      tags={"Users"},
+     *      summary="Delete existing user",
+     *      description="Deletes a record and returns no content",
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Users id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=204,
+     *          description="Successful operation",
+     *          @OA\JsonContent()
+     *       ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Resource Not Found"
+     *      )
+     * )
      */
     public function destroy(vis_user $user)
     {

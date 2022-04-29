@@ -34,7 +34,8 @@ php artisan make:controller Api\TenantController -r
 php artisan route:list
 
 ## API DOCUMENTATION
-1. run php artisan l5-swagger:generate
-2. run php artisan server
-3. open url -> http://127.0.0.1:8000/api/documentation
+1. install composer require "darkaonline/l5-swagger"
+2. run php artisan l5-swagger:generate
+3. run php artisan server
+4. open url -> http://127.0.0.1:8000/api/documentation
 

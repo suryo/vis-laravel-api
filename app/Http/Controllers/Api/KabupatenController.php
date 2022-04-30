@@ -16,6 +16,21 @@ class KabupatenController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    /**
+    * @OA\Get(
+    *      path="/api/kabupaten",
+    *      operationId="getKabupatenList",
+    *      tags={"Kabupaten"},
+    *      summary="Get list of kabupatens",
+    *      description="Returns list of kabupatens",
+    *      @OA\Response(
+    *          response=200,
+    *          description="Successful operation",
+    *          )
+    *       )
+    *     )
+    */
     public function index()
     {
         // return new KabupatenResource(vis_kabupaten::all());
@@ -35,6 +50,43 @@ class KabupatenController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
+     */
+
+      /**
+     * @OA\Post(
+     *      path="/api/kabupaten",
+     *      operationId="storeKabupaten",
+     *      tags={"Kabupaten"},
+     *      summary="Store new user",
+     *      description="Returns user data",
+     *      @OA\Parameter(
+     *          name="body",
+     *          description="Project id",
+     *          required=true,
+     *          in="path",
+     *      ),
+     *       @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="object",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="ids",
+     *                     type="array",
+     *                     @OA\Items(type="integer")
+     *                 )
+     *             )
+     *         )
+     *       ),
+     *      @OA\Response(
+     *          response=201,
+     *          description="Successful operation",
+     *          @OA\JsonContent()
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      )
+     * )
      */
     public function store(Request $request)
     {

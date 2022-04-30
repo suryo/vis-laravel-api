@@ -8,26 +8,25 @@
 5. php artisan serve
 6. dump db_vis.sql
 
+## Branch
 git checkout -b nama_branch
 
-## branch
-
 ## Endpoint
+Please Check on http://127.0.0.1:8000/api/documentation
 
-
-## Membuat Model
+## Model
 
 php artisan make:model nama_model -m
 example
 php artisan make:model tenant_model -r 
 
-## Membuat Resource
+## Resource
 
 php artisan make:resource nama_resource
 example :
 php artisan make:resource TenantResource
 
-## Membuat Controller
+## Controller
 php artisan make:controller Api\TenantController -r 
 
 ## Check Route

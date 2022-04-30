@@ -21,6 +21,21 @@ class KotaController extends Controller
     {
         $this->vis_kota = $vis_kota;
     }
+
+     /**
+    * @OA\Get(
+    *      path="/api/kotan",
+    *      operationId="getKotaList",
+    *      tags={"Kota"},
+    *      summary="Get list of kotas",
+    *      description="Returns list of kotas",
+    *      @OA\Response(
+    *          response=200,
+    *          description="Successful operation",
+    *          )
+    *       )
+    *     )
+    */
     public function index()
     {
 

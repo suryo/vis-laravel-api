@@ -5,6 +5,240 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/kabupaten": {
+            "get": {
+                "tags": [
+                    "Kabupaten"
+                ],
+                "summary": "Get list of kabupatens",
+                "description": "Returns list of kabupatens",
+                "operationId": "getKabupatenList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Kabupaten"
+                ],
+                "summary": "Store new user",
+                "description": "Returns user data",
+                "operationId": "storeKabupaten",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "path",
+                        "description": "Project id",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "object": {
+                            "schema": {
+                                "properties": {
+                                    "ids": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/api/kotan": {
+            "get": {
+                "tags": [
+                    "Kota"
+                ],
+                "summary": "Get list of kotas",
+                "description": "Returns list of kotas",
+                "operationId": "getKotaList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/provinsi": {
+            "get": {
+                "tags": [
+                    "Provinsi"
+                ],
+                "summary": "Get list of provinsis",
+                "description": "Returns list of provinsis",
+                "operationId": "getProvinsiList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Provinsi"
+                ],
+                "summary": "Create a Test",
+                "operationId": "dd94e646782f1191b25e237d6afe7a2e",
+                "requestBody": {
+                    "description": "Data packet for Test",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "data": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "provinsi": {
+                                                    "type": "string",
+                                                    "example": ""
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    }
+                }
+            }
+        },
+        "/api/provinsi/{id}": {
+            "put": {
+                "tags": [
+                    "Provinsi"
+                ],
+                "summary": "Update existing provinsi",
+                "description": "Returns updated provinsi data",
+                "operationId": "updateProvinsi",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Provinsi id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Data packet for Test",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "data": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "provinsi": {
+                                                    "type": "string",
+                                                    "example": ""
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Provinsi"
+                ],
+                "summary": "Delete existing Provinsi",
+                "description": "Deletes a record and returns no content",
+                "operationId": "deleteProvinsi",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Provinsi id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
         "/user": {
             "get": {
                 "tags": [

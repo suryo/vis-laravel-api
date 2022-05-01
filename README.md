@@ -38,3 +38,5 @@ php artisan route:list
 3. run php artisan server
 4. open url -> http://127.0.0.1:8000/api/documentation
 
+## FILE UPLOAD
+the file will be upload on the following path – storage/app/public/files.

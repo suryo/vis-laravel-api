@@ -49,3 +49,7 @@ Route::apiResource('/kecamatan', App\Http\Controllers\Api\KecamatanController::c
  * route resource desa
 */
 Route::apiResource('/desa', App\Http\Controllers\Api\DesaController::class);
+
+// use App\Http\Controllers\API\FileUploadController;
+Route::apiResource('/file', App\Http\Controllers\Api\FileController::class);
+// Route::post('uploading-file-api', [FileUploadController::class, 'upload']);
